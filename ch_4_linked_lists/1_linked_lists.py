@@ -80,15 +80,38 @@ class LinkedList:
             node_to_return = self.head
             self.head = None
             self.tail = None
-            self.length = 1
+            self.length = 0
             
             return node_to_return
         
         node_to_return = self.head
         self.head = node_to_return.next
+        node_to_return.next = None
         self.length -= 1
 
         return node_to_return
+    
+
+    def get(self, index):
+        if index < 0 or index >= self.length:
+            return None
+
+        current_node = self.head
+        for _ in range(index) :
+            current_node = current_node.next
+        
+        return current_node
+    
+    def set_value(self, index, value):
+        idx_node = self.get(index)
+        if idx_node:
+            idx_node.value = value
+            return True
+        return False
+    
+    def insert_nodex(self, index, value):
+
+        return 
 
     def make_empty(self):
         self.head = None
@@ -109,31 +132,39 @@ if __name__ == '__main__':
         my_ll.append(i)
     my_ll.append(888)
     my_ll.append(999)
-    my_ll.print_list()
-    print(f"\nLinked list has {my_ll.length} elements")
     
-    last_el = my_ll.pop()
-    print(f"\nThe last value in the linked list before pop operation was: {last_el.value}")
-    print('--'*30)
-    print(f"\nThe new list has {my_ll.length} elements")
-    
-    my_ll.print_list()
+    # my_ll.print_list()
 
-    for _ in range(my_ll.length):
-        print(f"Deleting the last value {my_ll.pop().value}")
+    # for _ in range(my_ll.length):
+    #     print(f"Deleting the last value {my_ll.pop().value}")
     
-    my_ll.print_list()
+    # my_ll.print_list()
 
     my_ll.prepend(321)
     my_ll.prepend(456)
     my_ll.prepend(789)
     my_ll.prepend(1024)
+    # my_ll.print_list()
+
+    # print(f"Pop item: {my_ll.pop_first().value}")
+    # print(f"Pop item: {my_ll.pop_first().value}")
+    # print(f"Pop item: {my_ll.pop_first().value}")
+
+    # my_ll =  LinkedList(99999)
+    # my_ll.make_empty()
+    print('-'*30)
+    my_ll.print_list()
+    
+    
+    # idx_to_get = 0
+    # for idx_to_get in range(17):
+    #     a = my_ll.get(idx_to_get)
+    #     if a:
+    #         print(f"Getting idx {idx_to_get} from LL: { a.value}")
+    #     else:
+    #         print(f'No value to return')
+    print('-'*30)
+    my_ll.set_value(2, 'dogsog')
     my_ll.print_list()
 
-    print(f"Pop item: {my_ll.pop_first().value}")
-    print(f"Pop item: {my_ll.pop_first().value}")
-    print(f"Pop item: {my_ll.pop_first().value}")
-
-    my_ll.print_list()
-
-    print('Hello world!')
+      print('Hello world!')
