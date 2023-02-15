@@ -102,6 +102,7 @@ class LinkedList:
         
         return current_node
     
+
     def set_value(self, index, value):
         idx_node = self.get(index)
         if idx_node:
@@ -109,9 +110,78 @@ class LinkedList:
             return True
         return False
     
-    def insert_nodex(self, index, value):
 
-        return 
+    def insert_node(self, index, value):
+
+        if index < 0 or index > self.length:
+            return None
+        
+        if index == self.length:
+            return self.append(value)
+        
+        if index == 0:
+            return self.prepend(value)
+
+        new_node = Node(value) 
+        temp = self.get(index-1)
+        
+        new_node.next = temp
+        temp.next = new_node
+
+        self.length +=1
+
+        return True
+    
+
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        
+        if index == 0:
+            return self.pop_first()
+        
+        if index == self.length-1:
+            return self.pop()
+        
+        prev = self.get(index-1)
+        temp = prev.next
+        
+        prev.next = temp.next
+        temp.next = None
+
+        self.length -= 1  
+
+        return temp
+
+    def reverse(self):
+        if self.length == 0:
+            return None
+        
+        temp = self.head
+        new_ll = LinkedList(temp.value)
+        
+        while temp.next:
+            new_ll.prepend(temp.next.value)
+            temp = temp.next
+
+        self = new_ll
+    
+    def reverse(self):
+        if self.length == 0:
+            return None
+        
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+
+        before = None
+        
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
+
 
     def make_empty(self):
         self.head = None
@@ -128,10 +198,43 @@ class LinkedList:
 
 if __name__ == '__main__':
     my_ll = LinkedList(1)
-    for i in range(7):
+    my_ll.make_empty()
+    for i in range(15):
         my_ll.append(i)
-    my_ll.append(888)
-    my_ll.append(999)
+
+    print('-'*30)
+    my_ll.print_list()
+    print(f"Length: {my_ll.length}")
+    
+    my_ll.reverse()
+    print('-'*30)
+    my_ll.print_list()
+    # print(f"Length: {reversed_ll.length}")
+
+    print('Hello world')
+
+    # my_ll.remove(9)
+    # print('-'*30)
+    # my_ll.print_list()
+    # print(f"Length: {my_ll.length}")
+    
+    
+    # my_ll.insert_node(8, 77)
+    # print('-'*30)
+    # my_ll.print_list()
+    # print(f"Length: {my_ll.length}")
+
+
+
+
+
+
+
+
+
+
+    # my_ll.append(888)
+    # my_ll.append(999)
     
     # my_ll.print_list()
 
@@ -140,10 +243,10 @@ if __name__ == '__main__':
     
     # my_ll.print_list()
 
-    my_ll.prepend(321)
-    my_ll.prepend(456)
-    my_ll.prepend(789)
-    my_ll.prepend(1024)
+    # my_ll.prepend(321)
+    # my_ll.prepend(456)
+    # my_ll.prepend(789)
+    # my_ll.prepend(1024)
     # my_ll.print_list()
 
     # print(f"Pop item: {my_ll.pop_first().value}")
@@ -152,8 +255,7 @@ if __name__ == '__main__':
 
     # my_ll =  LinkedList(99999)
     # my_ll.make_empty()
-    print('-'*30)
-    my_ll.print_list()
+   
     
     
     # idx_to_get = 0
@@ -163,8 +265,8 @@ if __name__ == '__main__':
     #         print(f"Getting idx {idx_to_get} from LL: { a.value}")
     #     else:
     #         print(f'No value to return')
-    print('-'*30)
-    my_ll.set_value(2, 'dogsog')
-    my_ll.print_list()
+    # print('-'*30)
+    # my_ll.set_value(2, 'dogsog')
+    # my_ll.print_list()
 
-      print('Hello world!')
+    print('Hello world!')
