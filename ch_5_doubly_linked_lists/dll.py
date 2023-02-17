@@ -117,10 +117,16 @@ class DoublyLinkedList:
         if index == self.length-1:
             return self.pop()
         
-        
+        node_by_idx = self.get(index)
+        before = node_by_idx.prev
+        after = node_by_idx.next
+        before.next = after
+        after.prev = before
+        node_by_idx.prev = None
+        node_by_idx.next = None
+        self.length -= 1
 
-
-        return None
+        return node_by_idx
 
 
     def get(self, index):
@@ -147,8 +153,13 @@ class DoublyLinkedList:
     
 
     def set_value(self, index, value):
+        if index < 0 or index >= self.length:
+            return False
 
-        return 
+        node_by_idx = self.get(index)
+        node_by_idx.value = value
+
+        return True
     
 
     def make_empty(self):
@@ -273,9 +284,35 @@ if __name__ == '__main__':
             print(f"We've inserted into idx {idx} value {value_to_insert}")
             dll.print_dll()
 
-        
+    
+    def test_remove():
+        idxs = [-2, -1, 0, 1, 5, 11, 10]
+        for idx in idxs:
+            dll = DoublyLinkedList(0)
+            for i in range(1, 11):
+                dll.append(i)
+            # dll.print_dll()
 
-    test_insert()
+            removed_node = dll.remove(idx)
+            print('-'*15)
+            print(f"We've removed idx #{idx}. Length: {dll.length}. Removed value: {(lambda x: x.value if x else 'None')(removed_node)}")
+            dll.print_dll()
+            print('-'*15)
+
+    
+    def test_set_value():
+        dll = DoublyLinkedList(0)
+        for i in range(1, 11):
+            dll.append(i)
+        # dll.print_dll()
+
+        for idx in range(11):
+            cur_value = dll.get(idx).value
+            dll.set_value(idx, 1 + 2*cur_value)
+        
+        dll.print_dll()
+
+    test_set_value()
    
 
     print("Hello world!")
