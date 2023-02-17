@@ -166,7 +166,7 @@ class LinkedList:
 
         self = new_ll
     
-    def reverse(self):
+    def reverse_2(self):
         if self.length == 0:
             return None
         
