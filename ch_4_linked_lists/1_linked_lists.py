@@ -29,31 +29,24 @@ class LinkedList:
         
 
     def pop(self):
-        if not self.head:   
+        if self.length == 0 or not self.head:
             return None
+            
+        temp = self.head
         
-        elif self.length == 1:
-            node_to_return = self.head
-
-            self.head = None  
+        if self.length == 1:
+            self.head = None
             self.tail = None
-            self.length = 0
-            
-            return node_to_return
-        
         else:
-            current = self.head
-            while current.next:
-                previous = current
-                current = current.next
-            
-            node_to_return = previous.next
-            
-            self.tail = previous  
+            while temp.next:
+                prev = temp
+                temp = temp.next
+            self.tail = prev
             self.tail.next = None
-            self.length -= 1
         
-        return node_to_return
+        self.length -= 1
+        
+        return temp
     
 
     def prepend(self, value):
