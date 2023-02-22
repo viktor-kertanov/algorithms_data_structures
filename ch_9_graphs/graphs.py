@@ -3,7 +3,6 @@ class Graph:
         self.adj_list = {}
     
 
-
     def add_vertex(self, vertex):
         if vertex not in self.adj_list:
             self.adj_list[vertex] = []
@@ -21,21 +20,34 @@ class Graph:
     
 
     def remove_edge(self, v1, v2):
-        if v1 in self.adj_list:
-            edges1 = self.adj_list[v1]
-            for e_idx1, e in enumerate(edges1):
-                if e == v2:
-                    edges1.pop(e_idx1)
-        if v2 in self.adj_list:
-            edges2 = self.adj_list[v2]
-            for e_idx2, e in enumerate(edges2):
-                if e == v1:
-                    edges2.pop(e_idx2)
+        if v1 in self.adj_list and v2 in self.adj_list:
+            try:
+                self.adj_list[v1].remove(v2)
+                self.adj_list[v2].remove(v1)
+            except ValueError:
+                pass
+            return True
         
-        return True
-
-
+        return False
     
+
+    def remove_vertex(self, vertex):
+        if vertex not in self.adj_list:
+            return False
+        
+        edges = self.adj_list[vertex]
+
+        for el in edges:
+            try:
+                self.adj_list[el].remove(vertex)
+            except ValueError:
+                pass
+        
+        del self.adj_list[vertex] 
+
+        return True
+    
+
     def print_graph(self):
         for vertex in self.adj_list:
             print(f"{vertex}: {self.adj_list[vertex]}")
@@ -47,16 +59,22 @@ if __name__ == '__main__':
     graph.add_vertex(5)
     graph.add_vertex(6)
     graph.add_vertex(7)
+    graph.add_vertex(8)
+    graph.add_vertex('A')
 
     graph.add_edge(5,6)
     graph.add_edge(6,7)
     graph.add_edge(7,5)
+    graph.add_edge('A',8)
+    graph.add_edge('A',7)
+    graph.add_edge('A',6)
+    graph.add_edge('A',5)
 
     graph.print_graph()
 
     print('-'*20)
-    graph.remove_edge(5,6)
-    graph.remove_edge(5,6)
-    graph.remove_edge(7,5)
-    graph.remove_edge(7,6)
+    # graph.remove_edge(5,6)
+    # graph.remove_edge(5,6)
+    graph.remove_vertex(7)
+    graph.remove_vertex(5)
     graph.print_graph()
