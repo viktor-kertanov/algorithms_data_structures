@@ -29,8 +29,8 @@ def merge_sort(my_list):
     return merge(left, right)
 
 if __name__ == '__main__':
-    list1 = [1, 3, 4, 5, 9, 10, 11, 12]
-    list2 = [2, 6, 7, 8, 13, 14]
+    # list1 = [1, 3, 4, 5, 9, 10, 11, 12]
+    # list2 = [2, 6, 7, 8, 13, 14]
 
     my_list = [4, 2, 6, 5, 1, 3]
 
