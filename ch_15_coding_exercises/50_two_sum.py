@@ -1,10 +1,22 @@
+# Viktor's solution
 def two_sum(nums, target):
     my_dict = {el_idx: el for el_idx, el in enumerate(nums) if el < target}
+    results = []
     for el in my_dict:
         reduced_dict = {i: my_dict[i] for i in my_dict if el!=i}
         for el2 in reduced_dict:
             if my_dict[el] + reduced_dict[el2] == target:
                 return [el, el2]
+    return []
+
+# Udemy's solution
+def two_sum(nums, target):
+    num_map = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in num_map:
+            return [num_map[complement], i]
+        num_map[num] = i
     return []
     
 
