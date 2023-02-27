@@ -10,6 +10,7 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
     
+
     def insert(self, value):
         new_node = Node(value)
         if not self.root:
@@ -33,6 +34,7 @@ class BinarySearchTree:
             else: 
                 return False
     
+
     def contains(self, value):
         temp = self.root
         while temp:
@@ -44,6 +46,7 @@ class BinarySearchTree:
                 temp = temp.left
         return False
     
+
     def BFS(self):
         current_node = self.root
         queue = [current_node]
@@ -58,6 +61,7 @@ class BinarySearchTree:
         
         return results
     
+
     def dfs_pre_order(self):
         results = []
         
@@ -86,6 +90,7 @@ class BinarySearchTree:
         
         return results
     
+
     def dfs_in_order(self):
         results = []
         
@@ -99,15 +104,59 @@ class BinarySearchTree:
         traverse(self.root)
         
         return results
+    
+
+    def _r_contains_helper(self, current_node, value):
+        if not current_node:
+            return False
+        if current_node.value == value:
+            return True
+        if value > current_node.value:
+            return self._r_contains_helper(current_node.right, value)
+        if value < current_node.value:
+            return self._r_contains_helper(current_node.left, value)
+    
+    
+    def recursive_contains(self, value):
+        return self._r_contains_helper(self.root, value)
+    
+
+    def recursive_insert(self, value):
+        if not self.root:
+            self.root = Node(value)
+        
+        def insert_helper(current_node, value):
+            if not current_node:
+                return Node(value)
+            
+            if value > current_node.value:
+                current_node.right = insert_helper(current_node.right, value)
+            
+            if value < current_node.value:
+                current_node.left = insert_helper(current_node.left, value)
+            
+            return current_node
+        
+        return insert_helper(self.root, value)
+    
+
+    def recursive_delete(self, value):
+
+        return None
 
 if __name__ == '__main__':
     tree_vals = [47, 21, 76, 18, 27, 52, 82]
     bst = BinarySearchTree()
     for val in tree_vals:
-        bst.insert(val)
+        bst.recursive_insert(val)
     
-    print(tree_vals)
-    a = bst.dfs_in_order()
-    print(a)
+    val_to_insert = 88
+    print(bst.recursive_insert(val_to_insert))
+    print(f"Our tree contains the value 88: {bst.recursive_contains(val_to_insert)}")
+    print(bst.BFS())
+
+    # print(tree_vals)
+    # a = bst.dfs_in_order()
+    # print(a)
     
     print("Hello world!")
