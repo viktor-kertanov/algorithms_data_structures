@@ -22,7 +22,7 @@ class LinkedList:
         return True
 
     def has_loop(self):
-        slow, fast = self.head
+        slow, fast = self.head, self.head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
