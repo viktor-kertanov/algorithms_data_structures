@@ -28,6 +28,11 @@ class LinkedList:
         self.length += 1
 
     def insertion_sort(self):
+        if self.length <= 1:
+            return True
+        
+        temp = self.head
+        sorted_list = LinkedList(temp.value)
         
 
 
