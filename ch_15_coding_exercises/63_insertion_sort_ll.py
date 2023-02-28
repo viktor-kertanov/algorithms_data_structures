@@ -27,27 +27,46 @@ class LinkedList:
             self.tail = new_node
         self.length += 1
 
+    # Super tough example... have to understand it better
     def insertion_sort(self):
-        if self.length <= 1:
-            return True
+        if self.length < 2:
+            return
         
+        sorted_list_head = self.head
+        unsorted_list_head = self.head.next
+        sorted_list_head.next = None
+        
+        while unsorted_list_head:
+            current = unsorted_list_head
+            unsorted_list_head = unsorted_list_head.next
+            
+            if current.value < sorted_list_head.value:
+                current.next = sorted_list_head
+                sorted_list_head = current
+            else:
+                search_pointer = sorted_list_head
+                while search_pointer.next and current.value > search_pointer.next.value:
+                    search_pointer = search_pointer.next
+                current.next = search_pointer.next
+                search_pointer.next = current
+        
+        self.head = sorted_list_head
         temp = self.head
-        sorted_list = LinkedList(temp.value)
-        
-
-
-        return True
-
+        while temp.next:
+            temp = temp.next
+        self.tail = temp
 
 
 
 
-my_linked_list = LinkedList(4)
+
+
+my_linked_list = LinkedList(3)
+my_linked_list.append(1)
 my_linked_list.append(2)
+my_linked_list.append(4)
 my_linked_list.append(6)
 my_linked_list.append(5)
-my_linked_list.append(1)
-my_linked_list.append(3)
 
 print("Linked List Before Sort:")
 my_linked_list.print_list()

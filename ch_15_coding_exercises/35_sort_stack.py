@@ -27,26 +27,21 @@ class Stack:
         else:
             return self.stack_list.pop()
 
+# Tough exercise
 
-
-
-def sort_stack(stack: Stack):
-    if not stack.is_empty:
-        return False
-    sorted_stack = Stack()
-    
-    while stack.stack_list:
-        current = stack.peek
-        s_current = sorted_stack.peek
-        if not s_current:
-            sorted_stack.push(current.pop())
-        elif s_current >= current:
-            sorted_stack.push(current.pop())
-        else:
-            stack.push(sorted_stack.pop())
-
-
-    return
+def sort_stack(stack):
+    additional_stack = Stack()
+ 
+    while not stack.is_empty():
+        temp = stack.pop()
+ 
+        while not additional_stack.is_empty() and additional_stack.peek() > temp:
+            stack.push(additional_stack.pop())
+ 
+        additional_stack.push(temp)
+ 
+    while not additional_stack.is_empty():
+        stack.push(additional_stack.pop())
 
 
 

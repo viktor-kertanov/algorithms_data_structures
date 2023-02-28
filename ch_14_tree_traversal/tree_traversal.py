@@ -139,10 +139,37 @@ class BinarySearchTree:
         
         return insert_helper(self.root, value)
     
-
+    
+    def min_value(self, current_node):
+        while current_node.left:
+            current_node = current_node.left
+        
+        return current_node.value
+    
+    
+    def __delete_node(self, current_node, value):
+        if not current_node:
+            return None
+        if value < current_node.value:
+            current_node.left = self.__delete_node(current_node.left, value)
+        elif value > current_node.value:
+            current_node.right = self.__delete_node(current_node.right, value)
+        else:
+            if not current_node.left and not current_node.right:
+                return None
+            elif not current_node.left:
+                current_node = current_node.right
+            elif not current_node.right:
+                current_node = current_node.left
+            else:
+                subtree_min = self.min_value(current_node.right)
+                current_node.value = subtree_min
+                current_node.right = self.__delete_node(current_node.right, subtree_min)
+        
+        return current_node
+    
     def recursive_delete(self, value):
-
-        return None
+        self.__delete_node(self.root, value)
 
 if __name__ == '__main__':
     tree_vals = [47, 21, 76, 18, 27, 52, 82]
@@ -150,10 +177,16 @@ if __name__ == '__main__':
     for val in tree_vals:
         bst.recursive_insert(val)
     
-    val_to_insert = 88
-    print(bst.recursive_insert(val_to_insert))
-    print(f"Our tree contains the value 88: {bst.recursive_contains(val_to_insert)}")
+    # val_to_insert = 88
+    # print(bst.recursive_insert(val_to_insert))
+    # print(f"Our tree contains the value 88: {bst.recursive_contains(val_to_insert)}")
     print(bst.BFS())
+    print(bst.dfs_in_order())
+
+    bst.recursive_delete(18)
+    print(bst.BFS())
+    print(bst.dfs_in_order())
+    # print(bst.min_value(bst.root.right))
 
     # print(tree_vals)
     # a = bst.dfs_in_order()
